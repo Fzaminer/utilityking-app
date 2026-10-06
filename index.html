@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>UtilityKing - 10 Tools in 1</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+</head>
+<body>
+
+<header class="app-header">
+    <div class="header-left">
+        <button id="backBtn" class="back-btn hidden">←</button>
+        <h1 id="headerTitle">UtilityKing</h1>
+    </div>
+    <div class="header-right">
+        <span id="userName" class="user-badge">👤</span>
+    </div>
+</header>
+
+<main id="homeScreen" class="screen active">
+    <p class="tagline">10 useful tools, zero clutter. 24/7 free.</p>
+
+    <div class="tools-grid">
+        <div class="tool-card" data-tool="qr">
+            <div class="tool-icon">📱</div>
+            <div class="tool-name">QR Generator</div>
+        </div>
+        <div class="tool-card" data-tool="password">
+            <div class="tool-icon">🔐</div>
+            <div class="tool-name">Password</div>
+        </div>
+        <div class="tool-card" data-tool="converter">
+            <div class="tool-icon">📏</div>
+            <div class="tool-name">Converter</div>
+        </div>
+        <div class="tool-card" data-tool="text">
+            <div class="tool-icon">📝</div>
+            <div class="tool-name">Text Tools</div>
+        </div>
+        <div class="tool-card" data-tool="color">
+            <div class="tool-icon">🎨</div>
+            <div class="tool-name">Color Picker</div>
+        </div>
+        <div class="tool-card" data-tool="random">
+            <div class="tool-icon">🎲</div>
+            <div class="tool-name">Random</div>
+        </div>
+        <div class="tool-card" data-tool="bmi">
+            <div class="tool-icon">⚖️</div>
+            <div class="tool-name">BMI</div>
+        </div>
+        <div class="tool-card" data-tool="age">
+            <div class="tool-icon">🎂</div>
+            <div class="tool-name">Age Calc</div>
+        </div>
+        <div class="tool-card" data-tool="tip">
+            <div class="tool-icon">💰</div>
+            <div class="tool-name">Tip Calc</div>
+        </div>
+        <div class="tool-card" data-tool="timer">
+            <div class="tool-icon">⏱️</div>
+            <div class="tool-name">Stopwatch</div>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        <p>💡 No ads. No signup. Just tools.</p>
+    </div>
+</main>
+
+<section id="tool-qr" class="screen tool-screen">
+    <h2>QR Code Generator</h2>
+    <input type="text" id="qrInput" placeholder="Enter text or URL..." class="input">
+    <button id="qrGenerate" class="btn-primary">Generate QR</button>
+    <div id="qrResult" class="result-box"></div>
+    <button id="qrDownload" class="btn-secondary hidden">⬇️ Download</button>
+</section>
+
+<section id="tool-password" class="screen tool-screen">
+    <h2>Password Generator</h2>
+    <div class="output-box" id="pwdOutput">Click Generate</div>
+    <div class="options">
+        <label>Length: <span id="pwdLenVal">16</span></label>
+        <input type="range" id="pwdLen" min="6" max="32" value="16">
+        <label class="checkbox"><input type="checkbox" id="pwdUpper" checked> Uppercase</label>
+        <label class="checkbox"><input type="checkbox" id="pwdLower" checked> Lowercase</label>
+        <label class="checkbox"><input type="checkbox" id="pwdNum" checked> Numbers</label>
+        <label class="checkbox"><input type="checkbox" id="pwdSym" checked> Symbols</label>
+    </div>
+    <button id="pwdGenerate" class="btn-primary">Generate</button>
+    <button id="pwdCopy" class="btn-secondary">📋 Copy</button>
+</section>
+
+<section id="tool-converter" class="screen tool-screen">
+    <h2>Unit Converter</h2>
+    <select id="convType" class="input">
+        <option value="length">Length (m, km, mi, ft)</option>
+        <option value="weight">Weight (kg, g, lb, oz)</option>
+        <option value="temp">Temperature (C, F, K)</option>
+        <option value="data">Data (B, KB, MB, GB)</option>
+    </select>
+    <input type="number" id="convInput" placeholder="Enter value" class="input">
+    <div class="converter-row">
+        <select id="convFrom" class="input"></select>
+        <span>→</span>
+        <select id="convTo" class="input"></select>
+    </div>
+    <button id="convBtn" class="btn-primary">Convert</button>
+    <div id="convResult" class="output-box">Result</div>
+</section>
+
+<section id="tool-text" class="screen tool-screen">
+    <h2>Text Tools</h2>
+    <textarea id="textInput" placeholder="Paste your text here..." class="input textarea"></textarea>
+    <div class="stats" id="textStats">
+        <span>Words: <b id="wordCount">0</b></span>
+        <span>Chars: <b id="charCount">0</b></span>
+        <span>Lines: <b id="lineCount">0</b></span>
+    </div>
+    <div class="btn-row">
+        <button class="btn-mini" data-case="upper">UPPER</button>
+        <button class="btn-mini" data-case="lower">lower</button>
+        <button class="btn-mini" data-case="title">Title</button>
+        <button class="btn-mini" data-case="reverse">Reverse</button>
+    </div>
+    <button id="textCopy" class="btn-secondary">📋 Copy</button>
+</section>
+
+<section id="tool-color" class="screen tool-screen">
+    <h2>Color Picker</h2>
+    <input type="color" id="colorInput" value="#3498db" class="color-input">
+    <div id="colorPreview" class="color-preview"></div>
+    <div class="color-codes">
+        <div><span>HEX:</span> <b id="hexCode">#3498db</b></div>
+        <div><span>RGB:</span> <b id="rgbCode">rgb(52, 152, 219)</b></div>
+        <div><span>HSL:</span> <b id="hslCode">hsl(204, 70%, 53%)</b></div>
+    </div>
+    <button id="colorCopy" class="btn-secondary">📋 Copy HEX</button>
+</section>
+
+<section id="tool-random" class="screen tool-screen">
+    <h2>Random Generator</h2>
+    <div class="btn-row">
+        <button class="btn-mini" data-random="dice">🎲 Dice</button>
+        <button class="btn-mini" data-random="coin">🪙 Coin</button>
+        <button class="btn-mini" data-random="number">🔢 Number</button>
+    </div>
+    <div class="random-inputs" id="randomInputs" style="display:none;">
+        <input type="number" id="randMin" placeholder="Min" value="1" class="input">
+        <input type="number" id="randMax" placeholder="Max" value="100" class="input">
+    </div>
+    <div id="randomResult" class="output-box large">Tap a button</div>
+</section>
+
+<section id="tool-bmi" class="screen tool-screen">
+    <h2>BMI Calculator</h2>
+    <input type="number" id="bmiWeight" placeholder="Weight (kg)" class="input">
+    <input type="number" id="bmiHeight" placeholder="Height (cm)" class="input">
+    <button id="bmiBtn" class="btn-primary">Calculate BMI</button>
+    <div id="bmiResult" class="output-box">—</div>
+</section>
+
+<section id="tool-age" class="screen tool-screen">
+    <h2>Age Calculator</h2>
+    <label class="label">Your Birth Date:</label>
+    <input type="date" id="ageInput" class="input">
+    <button id="ageBtn" class="btn-primary">Calculate Age</button>
+    <div id="ageResult" class="output-box">—</div>
+</section>
+
+<section id="tool-tip" class="screen tool-screen">
+    <h2>Tip Calculator</h2>
+    <input type="number" id="tipBill" placeholder="Bill amount" class="input">
+    <label class="label">Tip %: <span id="tipPctVal">15</span>%</label>
+    <input type="range" id="tipPct" min="0" max="30" value="15">
+    <input type="number" id="tipPeople" placeholder="Split between people" value="1" class="input">
+    <button id="tipBtn" class="btn-primary">Calculate</button>
+    <div id="tipResult" class="output-box">—</div>
+</section>
+
+<section id="tool-timer" class="screen tool-screen">
+    <h2>Stopwatch</h2>
+    <div id="timerDisplay" class="timer-display">00:00:00</div>
+    <div class="btn-row">
+        <button id="timerStart" class="btn-primary">▶ Start</button>
+        <button id="timerReset" class="btn-secondary">↺ Reset</button>
+    </div>
+</section>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="app.js"></script>
+</body>
+</html
